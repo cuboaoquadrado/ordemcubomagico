@@ -9,15 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #17161B;
-    --panel: #201F26;
-    --panel-2: #26252D;
-    --line: #35333D;
-    --text: #ECE8E3;
-    --muted: #948F9C;
+    --bg: #FFFFFF;
+    --panel: #F5F5F7;
+    --panel-2: #EBEBED;
+    --line: #D1D1D6;
+    --text: #1C1C1E;
+    --muted: #6E6E78;
     --accent: #E5432B;
-    --ok: #4FB477;
-    --gold: #e6b450;
+    --ok: #2C8F4E;
+    --gold: #B8860B;
     --youtube: #FF0000;
   }
   *{ box-sizing: border-box; }
@@ -63,6 +63,7 @@
     font-weight: 700; 
     font-size: 18px; 
     letter-spacing: -0.01em;
+    color: var(--text);
   }
   
   .youtube-link {
@@ -93,7 +94,7 @@
 
   .eyebrow{ display:flex; align-items:center; gap: 10px; color: var(--muted); font-size: 14px; margin-bottom: 10px; }
   .cubelet-dot{ width: 10px; height:10px; border-radius: 2px; background: var(--accent); flex: none; }
-  h1{ font-size: 27px; line-height: 1.25; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+  h1{ font-size: 27px; line-height: 1.25; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; color: var(--text); }
   p.lede{ color: var(--muted); font-size: 15px; line-height: 1.55; margin: 0 0 30px; max-width: 68ch; }
 
   .layout{ display:flex; gap: 26px; flex-wrap: wrap; align-items: flex-start; }
@@ -132,22 +133,22 @@
     font-family: 'Space Grotesk', sans-serif; font-size: 12.5px; padding: 7px 12px;
     border-radius: 8px; cursor: pointer;
   }
-  .icon-btn:hover{ color: var(--text); border-color: #4a4753; }
+  .icon-btn:hover{ color: var(--text); border-color: #b0b0b8; }
 
   .card{ background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
   label{ display:block; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
   textarea{
     width: 100%; resize: vertical; min-height: 84px;
-    background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
     color: var(--text); font-family: 'IBM Plex Mono', monospace; font-size: 17px;
     letter-spacing: 0.01em; padding: 14px 16px; outline: none;
     transition: border-color .15s ease;
   }
   textarea:focus{ border-color: var(--accent); }
-  textarea::placeholder{ color: #5b5763; }
+  textarea::placeholder{ color: #9a9aa3; }
 
   .row{ display:flex; align-items:center; justify-content: space-between; gap: 12px; margin-top: 14px; }
-  .hint{ font-size: 12.5px; color: #6f6b77; }
+  .hint{ font-size: 12.5px; color: #8a8a94; }
   button.primary{
     background: var(--accent); color: #fff; border: none; border-radius: 9px;
     padding: 11px 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 700;
@@ -164,7 +165,7 @@
     color: var(--ok); display:flex; align-items:baseline; gap: 12px;
   }
   .order-num small{ font-size: 16px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-weight: 400; }
-  .explain{ margin-top: 14px; font-size: 14.5px; line-height: 1.6; color: #C7C3CC; }
+  .explain{ margin-top: 14px; font-size: 14.5px; line-height: 1.6; color: #4a4a52; }
   .explain b{ color: var(--text); }
 
   .error-box{ margin-top: 22px; border-top: 1px solid var(--line); padding-top: 18px; display:none; }
@@ -177,37 +178,37 @@
     font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 7px 11px;
     border-radius: 999px; cursor: pointer;
   }
-  .ex-btn:hover{ color: var(--text); border-color: #4a4753; background: var(--accent); }
+  .ex-btn:hover{ color: var(--text); border-color: #b0b0b8; background: var(--accent); color: #fff; }
 
   .aula-box {
-    background: #1d1b24;
+    background: #F0F0F3;
     border-left: 4px solid var(--gold);
     border-radius: 10px;
     padding: 20px 22px;
     margin-top: 28px;
     font-size: 14.5px;
     line-height: 1.7;
-    color: #dad6e0;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    color: #2c2c32;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
   .aula-box strong { color: var(--gold); }
   .aula-box .destaque-math {
-    background: var(--panel-2);
+    background: #e0e0e6;
     border-radius: 6px;
     padding: 0 6px;
     font-family: 'IBM Plex Mono', monospace;
-    color: #f5e56b;
+    color: #8B6914;
     font-weight: 500;
   }
   .aula-box .citar {
     display: block;
-    background: #14131a;
+    background: #e8e8ee;
     padding: 12px 16px;
     border-radius: 10px;
     margin: 12px 0 6px;
-    border: 1px solid #2e2b38;
+    border: 1px solid #d0d0d8;
     font-style: italic;
-    color: #b9b3c9;
+    color: #3a3a42;
   }
   .aula-box .grid-simbolos {
     display: flex;
@@ -216,17 +217,18 @@
     margin: 12px 0 4px;
   }
   .aula-box .grid-simbolos span {
-    background: #12111a;
+    background: #e4e4ea;
     padding: 2px 12px;
     border-radius: 999px;
-    border: 1px solid #363240;
+    border: 1px solid #c8c8d0;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
+    color: #2c2c32;
   }
-  .aula-box .destaque { color: #ffb347; }
+  .aula-box .destaque { color: #B8860B; font-weight: 500; }
 
-  footer{ margin-top: 26px; color: #55515c; font-size: 12.5px; line-height: 1.6; }
-  footer code{ font-family: 'IBM Plex Mono', monospace; background: var(--panel-2); padding: 1px 5px; border-radius: 4px; color: #9d99a4; }
+  footer{ margin-top: 26px; color: #8a8a94; font-size: 12.5px; line-height: 1.6; }
+  footer code{ font-family: 'IBM Plex Mono', monospace; background: var(--panel-2); padding: 1px 5px; border-radius: 4px; color: #6a6a74; }
 
   @media (max-width: 700px) {
     .youtube-link {
@@ -316,15 +318,15 @@
             <span class="destaque">▸ Ciclo de um elemento</span> é o número de aplicações do algoritmo até que aquela peça volte à sua posição original (com a orientação correta). 
           </div>
           <div style="display:flex; gap:4px 14px; flex-wrap:wrap; margin: 4px 0 2px;">
-            <span style="background:#1f1d27; padding:1px 12px; border-radius:30px;">Ex: <span class="destaque-math">(R U R' U')</span> tem ordem 6</span>
-            <span style="background:#1f1d27; padding:1px 12px; border-radius:30px;"><span class="destaque-math">(R U R' U R U2 R')</span> (Sune) tem ordem 7</span>
+            <span style="background:#e4e4ea; padding:1px 12px; border-radius:30px; color:#2c2c32;">Ex: <span class="destaque-math">(R U R' U')</span> tem ordem 6</span>
+            <span style="background:#e4e4ea; padding:1px 12px; border-radius:30px; color:#2c2c32;"><span class="destaque-math">(R U R' U R U2 R')</span> (Sune) tem ordem 7</span>
           </div>
 
-          <div style="margin-top: 10px; background: #14131b; border-radius: 8px; padding: 6px 14px;">
+          <div style="margin-top: 10px; background: #e8e8ee; border-radius: 8px; padding: 6px 14px;">
             <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
               <span style="color:var(--gold);">🧩</span> 
               <span style="font-weight:500;">Matematicamente:</span> 
-              <span style="font-family:'IBM Plex Mono',monospace; background:#0d0c13; padding:0 8px; border-radius:30px;">ordem = MMC (tamanho dos ciclos de posição × fator de orientação)</span>
+              <span style="font-family:'IBM Plex Mono',monospace; background:#d8d8e0; padding:0 8px; border-radius:30px; color:#2c2c32;">ordem = MMC (tamanho dos ciclos de posição × fator de orientação)</span>
               <span style="color:var(--muted); font-size:13px;">(até 1260 no cubo 3x3)</span>
             </div>
           </div>
@@ -332,11 +334,11 @@
           <div class="grid-simbolos">
             <span>R</span><span>U</span><span>F</span><span>L</span><span>D</span><span>B</span>
             <span style="color:var(--muted);">|</span>
-            <span style="color:#c7b05f;">M</span><span style="color:#c7b05f;">E</span><span style="color:#c7b05f;">S</span>
+            <span style="color:#8B6914;">M</span><span style="color:#8B6914;">E</span><span style="color:#8B6914;">S</span>
             <span style="color:var(--muted);">|</span>
-            <span style="color:#ff9966;">x</span><span style="color:#ff9966;">y</span><span style="color:#ff9966;">z</span>
+            <span style="color:#B8860B;">x</span><span style="color:#B8860B;">y</span><span style="color:#B8860B;">z</span>
           </div>
-          <p style="font-size:13px; color:#928e9e; margin:6px 0 0;">Use este app para descobrir a ordem de qualquer algoritmo — e veja a relação com ciclos na prática.</p>
+          <p style="font-size:13px; color:#6a6a74; margin:6px 0 0;">Use este app para descobrir a ordem de qualquer algoritmo — e veja a relação com ciclos na prática.</p>
         </div>
       </div>
 
@@ -549,183 +551,4 @@ function buildRenderCube(){
       {dir:'D', cond:y===-1, transform:`rotateX(-90deg) translateZ(${HALF}px)`},
       {dir:'F', cond:z===1,  transform:`translateZ(${HALF}px)`},
       {dir:'B', cond:z===-1, transform:`rotateY(180deg) translateZ(${HALF}px)`},
-      {dir:'R', cond:x===1,  transform:`rotateY(90deg) translateZ(${HALF}px)`},
-      {dir:'L', cond:x===-1, transform:`rotateY(-90deg) translateZ(${HALF}px)`},
-    ];
-    for (const fd of faceDefs){
-      if (!fd.cond) continue;
-      const f = document.createElement('div');
-      f.className = 'face';
-      f.style.background = COLORS[fd.dir];
-      f.style.transform = fd.transform;
-      el.appendChild(f);
-    }
-    cubeEl.appendChild(el);
-    renderCubies.push({ x, y, z, R: identity3(), el });
-  }
-}
-buildRenderCube();
-
-function toCss(Rlogical, posLogical){
-  const sign=[1,-1,1];
-  const Rcss=[[0,0,0],[0,0,0],[0,0,0]];
-  for (let i=0;i<3;i++) for (let j=0;j<3;j++) Rcss[i][j] = Rlogical[i][j]*sign[i]*sign[j];
-  const t=[posLogical[0]*S, posLogical[1]*S*-1, posLogical[2]*S];
-  return { Rcss, t };
-}
-function buildMatrix3d(Rcss, t){
-  return `matrix3d(${Rcss[0][0]},${Rcss[1][0]},${Rcss[2][0]},0, ${Rcss[0][1]},${Rcss[1][1]},${Rcss[2][1]},0, ${Rcss[0][2]},${Rcss[1][2]},${Rcss[2][2]},0, ${t[0]},${t[1]},${t[2]},1)`;
-}
-function renderCubie(c){
-  const { Rcss, t } = toCss(c.R, [c.x, c.y, c.z]);
-  c.el.style.transform = buildMatrix3d(Rcss, t);
-}
-function renderAll(){ for (const c of renderCubies) renderCubie(c); }
-renderAll();
-
-function animateOneMove(base, turns, duration){
-  return new Promise(resolve=>{
-    const mv = VMOVES[base];
-    if (!mv) { resolve(); return; }
-    const finalAngle = turns===2 ? mv.unit*2 : turns===3 ? -mv.unit : mv.unit;
-    const layerCubies = renderCubies.filter(c=>{
-      const coord = mv.axis==='x'?c.x:mv.axis==='y'?c.y:c.z;
-      return mv.layers.includes(coord);
-    });
-    const start = layerCubies.map(c=>({ c, R:c.R, pos:[c.x,c.y,c.z] }));
-    const t0 = performance.now();
-    function frame(now){
-      const p = Math.min(1, (now-t0)/duration);
-      const eased = easeInOutQuad(p);
-      const theta = finalAngle*eased;
-      const rotM = rotMatrix3(mv.axis, theta);
-      for (const s of start){
-        const newPos = rotVec(mv.axis, theta, s.pos);
-        const newR = matMul3(rotM, s.R);
-        const { Rcss, t } = toCss(newR, newPos);
-        s.c.el.style.transform = buildMatrix3d(Rcss, t);
-      }
-      if (p < 1){ requestAnimationFrame(frame); }
-      else {
-        const fn = discreteFn(mv.axis, mv.unit);
-        const discreteMat = matFnToMatrix(fn);
-        for (const s of start){
-          let pos = s.pos, R = s.R;
-          for (let k=0;k<turns;k++){ 
-            pos = fn(pos[0],pos[1],pos[2]); 
-            R = matMul3(discreteMat, R); 
-          }
-          s.c.x=pos[0]; s.c.y=pos[1]; s.c.z=pos[2]; s.c.R=R;
-          renderCubie(s.c);
-        }
-        resolve();
-      }
-    }
-    requestAnimationFrame(frame);
-  });
-}
-
-let playToken = 0;
-async function playAlgorithm(tokens){
-  const myToken = ++playToken;
-  buildRenderCube();
-  renderAll();
-  if (!tokens.length) return;
-  const duration = Math.max(110, Math.min(320, 4200/tokens.length));
-  for (const tok of tokens){
-    if (myToken !== playToken) return;
-    await animateOneMove(tok.base, tok.turns, duration);
-  }
-}
-
-/* -------- drag to orbit the camera -------- */
-let camRotX = -28, camRotY = -35;
-function applyCamera(){ cameraEl.style.transform = `rotateX(${camRotX}deg) rotateY(${camRotY}deg)`; }
-applyCamera();
-const sceneEl = document.getElementById('scene');
-let dragging = false, lastX=0, lastY=0;
-sceneEl.addEventListener('pointerdown', e=>{ dragging=true; lastX=e.clientX; lastY=e.clientY; sceneEl.setPointerCapture(e.pointerId); });
-sceneEl.addEventListener('pointermove', e=>{
-  if (!dragging) return;
-  const dx = e.clientX-lastX, dy = e.clientY-lastY;
-  lastX=e.clientX; lastY=e.clientY;
-  camRotY += dx*0.5;
-  camRotX -= dy*0.5;
-  camRotX = Math.max(-85, Math.min(85, camRotX));
-  applyCamera();
-});
-sceneEl.addEventListener('pointerup', ()=>{ dragging=false; });
-sceneEl.addEventListener('pointerleave', ()=>{ dragging=false; });
-document.getElementById('resetViewBtn').addEventListener('click', ()=>{ camRotX=-28; camRotY=-35; applyCamera(); });
-
-/* =========================================================
-   UI
-   ========================================================= */
-const algEl = document.getElementById('alg');
-const resultEl = document.getElementById('result');
-const errorBox = document.getElementById('errorBox');
-const errorMsg = document.getElementById('errorMsg');
-const orderVal = document.getElementById('orderVal');
-const orderSuffix = document.getElementById('orderSuffix');
-const explainEl = document.getElementById('explain');
-
-function moveCountLabel(n){ return n === 1 ? '1 movimento' : n + ' movimentos'; }
-
-let lastTokens = [];
-
-function run(){
-  resultEl.classList.remove('show');
-  errorBox.classList.remove('show');
-  const raw = algEl.value.trim();
-  if (!raw){
-    errorMsg.textContent = 'Digite um algoritmo primeiro.';
-    errorBox.classList.add('show');
-    playAlgorithm([]);
-    return;
-  }
-  try {
-    const { order, tokens } = algorithmOrder(raw, 3000);
-    lastTokens = tokens;
-    if (order === null){
-      errorMsg.textContent = 'Não foi possível determinar a ordem dentro do limite de repetições testado.';
-      errorBox.classList.add('show');
-    } else {
-      orderVal.textContent = order;
-      orderSuffix.textContent = order === 1 ? 'vez' : 'vezes';
-      if (order === 1){
-        explainEl.innerHTML = 'Esse algoritmo já resolve de volta o cubo em <b>uma única aplicação</b> — ou seja, ele é equivalente a não fazer nada.';
-      } else {
-        explainEl.innerHTML = 'Com <b>' + moveCountLabel(tokens.length) + '</b> por repetição, é preciso aplicar esse algoritmo <b>' + order + ' vezes seguidas</b> (um total de ' + (order*tokens.length) + ' movimentos) para o cubo voltar ao estado em que começou.';
-      }
-      resultEl.classList.add('show');
-    }
-    playAlgorithm(tokens);
-  } catch (e){
-    errorMsg.textContent = e.message + '. Use apenas letras válidas: U D L R F B, M E S, versões largas (Uw, r, l...) ou rotações x y z, seguidas opcionalmente de \' ou 2.';
-    errorBox.classList.add('show');
-    playAlgorithm([]);
-  }
-}
-
-let debounceTimer = null;
-algEl.addEventListener('input', ()=>{
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(run, 550);
-});
-document.getElementById('calc').addEventListener('click', run);
-algEl.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { clearTimeout(debounceTimer); run(); }
-});
-document.querySelectorAll('.ex-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    clearTimeout(debounceTimer);
-    algEl.value = btn.dataset.alg;
-    run();
-  });
-});
-document.getElementById('replayBtn').addEventListener('click', ()=>{ playAlgorithm(lastTokens); });
-
-run();
-</script>
-</body>
-</html>
+      {dir:'R', cond:x===1,  transform:`rotateY(90deg) translateZ(${H
