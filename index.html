@@ -350,9 +350,9 @@
 </div>
 
 <script>
-/* =========================================================
-   MOTOR LÓGICO (cálculo exato da ordem — números inteiros)
-   ========================================================= */
+// ============================================================
+// MOTOR LÓGICO
+// ============================================================
 function matXplus(x,y,z){ return [x, -z, y]; }
 function matXminus(x,y,z){ return [x, z, -y]; }
 function matYplus(x,y,z){ return [z, y, -x]; }
@@ -486,9 +486,9 @@ function algorithmOrder(algStr, maxIter){
   return { order: null, tokens };
 }
 
-/* =========================================================
-   MOTOR 3D (renderização e animação)
-   ========================================================= */
+// ============================================================
+// MOTOR 3D
+// ============================================================
 const S = 56, HALF = 29;
 const COLORS = { U:'#F5F5F0', D:'#FFD400', F:'#00A550', B:'#1E5FD9', R:'#D8202A', L:'#FF7A1A' };
 
@@ -551,4 +551,185 @@ function buildRenderCube(){
       {dir:'D', cond:y===-1, transform:`rotateX(-90deg) translateZ(${HALF}px)`},
       {dir:'F', cond:z===1,  transform:`translateZ(${HALF}px)`},
       {dir:'B', cond:z===-1, transform:`rotateY(180deg) translateZ(${HALF}px)`},
-      {dir:'R', cond:x===1,  transform:`rotateY(90deg) translateZ(${H
+      {dir:'R', cond:x===1,  transform:`rotateY(90deg) translateZ(${HALF}px)`},
+      {dir:'L', cond:x===-1, transform:`rotateY(-90deg) translateZ(${HALF}px)`},
+    ];
+    for (const fd of faceDefs){
+      if (!fd.cond) continue;
+      const f = document.createElement('div');
+      f.className = 'face';
+      f.style.background = COLORS[fd.dir];
+      f.style.transform = fd.transform;
+      el.appendChild(f);
+    }
+    cubeEl.appendChild(el);
+    renderCubies.push({ x, y, z, R: identity3(), el });
+  }
+}
+buildRenderCube();
+
+function toCss(Rlogical, posLogical){
+  const sign=[1,-1,1];
+  const Rcss=[[0,0,0],[0,0,0],[0,0,0]];
+  for (let i=0;i<3;i++) for (let j=0;j<3;j++) Rcss[i][j] = Rlogical[i][j]*sign[i]*sign[j];
+  const t=[posLogical[0]*S, posLogical[1]*S*-1, posLogical[2]*S];
+  return { Rcss, t };
+}
+function buildMatrix3d(Rcss, t){
+  return `matrix3d(${Rcss[0][0]},${Rcss[1][0]},${Rcss[2][0]},0, ${Rcss[0][1]},${Rcss[1][1]},${Rcss[2][1]},0, ${Rcss[0][2]},${Rcss[1][2]},${Rcss[2][2]},0, ${t[0]},${t[1]},${t[2]},1)`;
+}
+function renderCubie(c){
+  const { Rcss, t } = toCss(c.R, [c.x, c.y, c.z]);
+  c.el.style.transform = buildMatrix3d(Rcss, t);
+}
+function renderAll(){ for (const c of renderCubies) renderCubie(c); }
+renderAll();
+
+function animateOneMove(base, turns, duration){
+  return new Promise(resolve=>{
+    const mv = VMOVES[base];
+    if (!mv) { resolve(); return; }
+    const finalAngle = turns===2 ? mv.unit*2 : turns===3 ? -mv.unit : mv.unit;
+    const layerCubies = renderCubies.filter(c=>{
+      const coord = mv.axis==='x'?c.x:mv.axis==='y'?c.y:c.z;
+      return mv.layers.includes(coord);
+    });
+    const start = layerCubies.map(c=>({ c, R:c.R, pos:[c.x,c.y,c.z] }));
+    const t0 = performance.now();
+    function frame(now){
+      const p = Math.min(1, (now-t0)/duration);
+      const eased = easeInOutQuad(p);
+      const theta = finalAngle*eased;
+      const rotM = rotMatrix3(mv.axis, theta);
+      for (const s of start){
+        const newPos = rotVec(mv.axis, theta, s.pos);
+        const newR = matMul3(rotM, s.R);
+        const { Rcss, t } = toCss(newR, newPos);
+        s.c.el.style.transform = buildMatrix3d(Rcss, t);
+      }
+      if (p < 1){ requestAnimationFrame(frame); }
+      else {
+        const fn = discreteFn(mv.axis, mv.unit);
+        const discreteMat = matFnToMatrix(fn);
+        for (const s of start){
+          let pos = s.pos, R = s.R;
+          for (let k=0;k<turns;k++){ 
+            pos = fn(pos[0],pos[1],pos[2]); 
+            R = matMul3(discreteMat, R); 
+          }
+          s.c.x=pos[0]; s.c.y=pos[1]; s.c.z=pos[2]; s.c.R=R;
+          renderCubie(s.c);
+        }
+        resolve();
+      }
+    }
+    requestAnimationFrame(frame);
+  });
+}
+
+let playToken = 0;
+async function playAlgorithm(tokens){
+  const myToken = ++playToken;
+  buildRenderCube();
+  renderAll();
+  if (!tokens.length) return;
+  const duration = Math.max(110, Math.min(320, 4200/tokens.length));
+  for (const tok of tokens){
+    if (myToken !== playToken) return;
+    await animateOneMove(tok.base, tok.turns, duration);
+  }
+}
+
+// ============================================================
+// CONTROLES DA CÂMERA
+// ============================================================
+let camRotX = -28, camRotY = -35;
+function applyCamera(){ cameraEl.style.transform = `rotateX(${camRotX}deg) rotateY(${camRotY}deg)`; }
+applyCamera();
+const sceneEl = document.getElementById('scene');
+let dragging = false, lastX=0, lastY=0;
+sceneEl.addEventListener('pointerdown', e=>{ dragging=true; lastX=e.clientX; lastY=e.clientY; sceneEl.setPointerCapture(e.pointerId); });
+sceneEl.addEventListener('pointermove', e=>{
+  if (!dragging) return;
+  const dx = e.clientX-lastX, dy = e.clientY-lastY;
+  lastX=e.clientX; lastY=e.clientY;
+  camRotY += dx*0.5;
+  camRotX -= dy*0.5;
+  camRotX = Math.max(-85, Math.min(85, camRotX));
+  applyCamera();
+});
+sceneEl.addEventListener('pointerup', ()=>{ dragging=false; });
+sceneEl.addEventListener('pointerleave', ()=>{ dragging=false; });
+document.getElementById('resetViewBtn').addEventListener('click', ()=>{ camRotX=-28; camRotY=-35; applyCamera(); });
+
+// ============================================================
+// UI
+// ============================================================
+const algEl = document.getElementById('alg');
+const resultEl = document.getElementById('result');
+const errorBox = document.getElementById('errorBox');
+const errorMsg = document.getElementById('errorMsg');
+const orderVal = document.getElementById('orderVal');
+const orderSuffix = document.getElementById('orderSuffix');
+const explainEl = document.getElementById('explain');
+
+function moveCountLabel(n){ return n === 1 ? '1 movimento' : n + ' movimentos'; }
+
+let lastTokens = [];
+
+function run(){
+  resultEl.classList.remove('show');
+  errorBox.classList.remove('show');
+  const raw = algEl.value.trim();
+  if (!raw){
+    errorMsg.textContent = 'Digite um algoritmo primeiro.';
+    errorBox.classList.add('show');
+    playAlgorithm([]);
+    return;
+  }
+  try {
+    const { order, tokens } = algorithmOrder(raw, 3000);
+    lastTokens = tokens;
+    if (order === null){
+      errorMsg.textContent = 'Não foi possível determinar a ordem dentro do limite de repetições testado.';
+      errorBox.classList.add('show');
+    } else {
+      orderVal.textContent = order;
+      orderSuffix.textContent = order === 1 ? 'vez' : 'vezes';
+      if (order === 1){
+        explainEl.innerHTML = 'Esse algoritmo já resolve de volta o cubo em <b>uma única aplicação</b> — ou seja, ele é equivalente a não fazer nada.';
+      } else {
+        explainEl.innerHTML = 'Com <b>' + moveCountLabel(tokens.length) + '</b> por repetição, é preciso aplicar esse algoritmo <b>' + order + ' vezes seguidas</b> (um total de ' + (order*tokens.length) + ' movimentos) para o cubo voltar ao estado em que começou.';
+      }
+      resultEl.classList.add('show');
+    }
+    playAlgorithm(tokens);
+  } catch (e){
+    errorMsg.textContent = e.message + '. Use apenas letras válidas: U D L R F B, M E S, versões largas (Uw, r, l...) ou rotações x y z, seguidas opcionalmente de \' ou 2.';
+    errorBox.classList.add('show');
+    playAlgorithm([]);
+  }
+}
+
+let debounceTimer = null;
+algEl.addEventListener('input', ()=>{
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(run, 550);
+});
+document.getElementById('calc').addEventListener('click', run);
+algEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { clearTimeout(debounceTimer); run(); }
+});
+document.querySelectorAll('.ex-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    clearTimeout(debounceTimer);
+    algEl.value = btn.dataset.alg;
+    run();
+  });
+});
+document.getElementById('replayBtn').addEventListener('click', ()=>{ playAlgorithm(lastTokens); });
+
+run();
+</script>
+</body>
+</html>
