@@ -17,6 +17,8 @@
     --muted: #948F9C;
     --accent: #E5432B;
     --ok: #4FB477;
+    --gold: #e6b450;
+    --youtube: #FF0000;
   }
   *{ box-sizing: border-box; }
   html,body{ margin:0; padding:0; }
@@ -27,11 +29,67 @@
     min-height: 100vh;
     padding: 44px 20px 80px;
   }
-  .wrap{ max-width: 980px; margin: 0 auto; }
-  .site-header{ display:flex; align-items:center; gap: 12px; margin-bottom: 26px; }
-  .site-header img{ width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; background: transparent; }
-  .site-header .logo-fallback{ width: 44px; height: 44px; border-radius: 50%; background: var(--panel-2); border: 1px dashed var(--line); flex: none; }
-  .site-header .site-name{ font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+  .wrap{ max-width: 1020px; margin: 0 auto; }
+  
+  .site-header{ 
+    display:flex; 
+    align-items:center; 
+    gap: 12px; 
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+  }
+  .site-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .site-header img{ 
+    width: 44px; 
+    height: 44px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    flex: none; 
+    background: transparent; 
+  }
+  .site-header .logo-fallback{ 
+    width: 44px; 
+    height: 44px; 
+    border-radius: 50%; 
+    background: var(--panel-2); 
+    border: 1px dashed var(--line); 
+    flex: none; 
+  }
+  .site-header .site-name{ 
+    font-weight: 700; 
+    font-size: 18px; 
+    letter-spacing: -0.01em;
+  }
+  
+  .youtube-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--youtube);
+    color: #fff;
+    padding: 6px 14px 6px 10px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    margin-left: auto;
+  }
+  .youtube-link:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    color: #fff;
+  }
+  .youtube-link svg {
+    width: 18px;
+    height: 18px;
+    fill: #fff;
+    flex: none;
+  }
 
   .eyebrow{ display:flex; align-items:center; gap: 10px; color: var(--muted); font-size: 14px; margin-bottom: 10px; }
   .cubelet-dot{ width: 10px; height:10px; border-radius: 2px; background: var(--accent); flex: none; }
@@ -121,17 +179,86 @@
   }
   .ex-btn:hover{ color: var(--text); border-color: #4a4753; background: var(--accent); }
 
+  .aula-box {
+    background: #1d1b24;
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-top: 28px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #dad6e0;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+  }
+  .aula-box strong { color: var(--gold); }
+  .aula-box .destaque-math {
+    background: var(--panel-2);
+    border-radius: 6px;
+    padding: 0 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #f5e56b;
+    font-weight: 500;
+  }
+  .aula-box .citar {
+    display: block;
+    background: #14131a;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin: 12px 0 6px;
+    border: 1px solid #2e2b38;
+    font-style: italic;
+    color: #b9b3c9;
+  }
+  .aula-box .grid-simbolos {
+    display: flex;
+    gap: 12px 24px;
+    flex-wrap: wrap;
+    margin: 12px 0 4px;
+  }
+  .aula-box .grid-simbolos span {
+    background: #12111a;
+    padding: 2px 12px;
+    border-radius: 999px;
+    border: 1px solid #363240;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+  }
+  .aula-box .destaque { color: #ffb347; }
+
   footer{ margin-top: 26px; color: #55515c; font-size: 12.5px; line-height: 1.6; }
   footer code{ font-family: 'IBM Plex Mono', monospace; background: var(--panel-2); padding: 1px 5px; border-radius: 4px; color: #9d99a4; }
+
+  @media (max-width: 700px) {
+    .youtube-link {
+      margin-left: 0;
+      width: 100%;
+      justify-content: center;
+    }
+    .site-header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .site-header-left {
+      justify-content: center;
+    }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="site-header">
-    <img src="https://yt3.googleusercontent.com/8r8yfxNDykKA4wrCwnCYf2aODyT_VdvJJb_XGJbsvEEOYzUCwfrkKjwe3gvKqpdr5zTcMpThRQ=s160-c-k-c0x00ffffff-no-rj" alt="Logo Cubo² ao Quadrado" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'logo-fallback'}))">
-    <span class="site-name">Cubo² ao Quadrado</span>
+    <div class="site-header-left">
+      <img src="https://yt3.googleusercontent.com/8r8yfxNDykKA4wrCwnCYf2aODyT_VdvJJb_XGJbsvEEOYzUCwfrkKjwe3gvKqpdr5zTcMpThRQ=s160-c-k-c0x00ffffff-no-rj" alt="Logo Cubo² ao Quadrado" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'logo-fallback'}))">
+      <span class="site-name">Cubo² ao Quadrado</span>
+    </div>
+    <a href="https://www.youtube.com/@CuboaoQuadrado" target="_blank" class="youtube-link" title="Inscreva-se no canal">
+      <svg viewBox="0 0 24 24">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+      Inscreva-se
+    </a>
   </div>
-  <div class="eyebrow"><span class="cubelet-dot"></span>Cubo mágico</div>
+  <div class="eyebrow"><span class="cubelet-dot"></span>Cubo mágico · ordem & ciclo</div>
   <h1>Qual é a ordem do seu algoritmo?</h1>
   <p class="lede">Digite uma sequência de movimentos na notação do cubo mágico. Enquanto você digita, o cubo ao lado gira em 3D mostrando cada movimento, e o app calcula quantas vezes é preciso repetir o algoritmo até ele voltar exatamente ao estado inicial.</p>
 
@@ -172,6 +299,44 @@
           <button class="ex-btn" data-alg="R U R' U' R' F R2 U' R' U' R U R' F'">T-perm</button>
           <button class="ex-btn" data-alg="M2 U M2 U2 M2 U M2">H-perm</button>
           <button class="ex-btn" data-alg="r U R' U' r' F R F'">OLL com r</button>
+        </div>
+
+        <div class="aula-box">
+          <div style="display:flex; gap:6px; align-items:center; margin-bottom: 6px;">
+            <span style="background:var(--gold); width:8px; height:8px; border-radius:50%; display:inline-block;"></span>
+            <strong style="font-size:16px;">📘 Ordem e ciclo — aula prática</strong>
+          </div>
+          <p><strong>Ordem</strong> de um algoritmo é o menor número inteiro positivo <span class="destaque-math">n</span> tal que, ao repetir o algoritmo <span class="destaque-math">n</span> vezes, o cubo retorna ao estado inicial. É um conceito fundamental da <strong>teoria de grupos</strong> aplicada ao cubo mágico.</p>
+          
+          <div class="citar">
+            "Cada sequência de movimentos age como uma permutação sobre as 20 peças móveis (8 cantos + 12 arestas). A ordem é o <strong>mínimo múltiplo comum (MMC)</strong> dos comprimentos dos ciclos dessa permutação, considerando também a orientação das peças."
+          </div>
+
+          <div style="margin: 10px 0 4px;">
+            <span class="destaque">▸ Ciclo de um elemento</span> é o número de aplicações do algoritmo até que aquela peça volte à sua posição original (com a orientação correta). 
+          </div>
+          <div style="display:flex; gap:4px 14px; flex-wrap:wrap; margin: 4px 0 2px;">
+            <span style="background:#1f1d27; padding:1px 12px; border-radius:30px;">Ex: <span class="destaque-math">(R U R' U')</span> tem ordem 6</span>
+            <span style="background:#1f1d27; padding:1px 12px; border-radius:30px;"><span class="destaque-math">(R U R' U R U2 R')</span> (Sune) tem ordem 7</span>
+          </div>
+
+          <div style="margin-top: 10px; background: #14131b; border-radius: 8px; padding: 6px 14px;">
+            <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+              <span style="color:var(--gold);">🧩</span> 
+              <span style="font-weight:500;">Matematicamente:</span> 
+              <span style="font-family:'IBM Plex Mono',monospace; background:#0d0c13; padding:0 8px; border-radius:30px;">ordem = MMC (tamanho dos ciclos de posição × fator de orientação)</span>
+              <span style="color:var(--muted); font-size:13px;">(até 1260 no cubo 3x3)</span>
+            </div>
+          </div>
+
+          <div class="grid-simbolos">
+            <span>R</span><span>U</span><span>F</span><span>L</span><span>D</span><span>B</span>
+            <span style="color:var(--muted);">|</span>
+            <span style="color:#c7b05f;">M</span><span style="color:#c7b05f;">E</span><span style="color:#c7b05f;">S</span>
+            <span style="color:var(--muted);">|</span>
+            <span style="color:#ff9966;">x</span><span style="color:#ff9966;">y</span><span style="color:#ff9966;">z</span>
+          </div>
+          <p style="font-size:13px; color:#928e9e; margin:6px 0 0;">Use este app para descobrir a ordem de qualquer algoritmo — e veja a relação com ciclos na prática.</p>
         </div>
       </div>
 
@@ -320,7 +485,7 @@ function algorithmOrder(algStr, maxIter){
 }
 
 /* =========================================================
-   MOTOR 3D (renderização e animação — validado visualmente)
+   MOTOR 3D (renderização e animação)
    ========================================================= */
 const S = 56, HALF = 29;
 const COLORS = { U:'#F5F5F0', D:'#FFD400', F:'#00A550', B:'#1E5FD9', R:'#D8202A', L:'#FF7A1A' };
@@ -421,6 +586,7 @@ renderAll();
 function animateOneMove(base, turns, duration){
   return new Promise(resolve=>{
     const mv = VMOVES[base];
+    if (!mv) { resolve(); return; }
     const finalAngle = turns===2 ? mv.unit*2 : turns===3 ? -mv.unit : mv.unit;
     const layerCubies = renderCubies.filter(c=>{
       const coord = mv.axis==='x'?c.x:mv.axis==='y'?c.y:c.z;
@@ -445,7 +611,10 @@ function animateOneMove(base, turns, duration){
         const discreteMat = matFnToMatrix(fn);
         for (const s of start){
           let pos = s.pos, R = s.R;
-          for (let k=0;k<turns;k++){ pos = fn(pos[0],pos[1],pos[2]); R = matMul3(discreteMat, R); }
+          for (let k=0;k<turns;k++){ 
+            pos = fn(pos[0],pos[1],pos[2]); 
+            R = matMul3(discreteMat, R); 
+          }
           s.c.x=pos[0]; s.c.y=pos[1]; s.c.z=pos[2]; s.c.R=R;
           renderCubie(s.c);
         }
